@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode cull_disabled; // Disable back-face culling so that both sides of the grass render
+render_mode cull_disabled, unshaded; // Disable back-face culling so that both sides of the grass render
 
 // 2 colors which make a gradient together (to color the grass depending on height)
 uniform vec3 color : source_color;
