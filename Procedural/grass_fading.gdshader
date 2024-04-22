@@ -8,6 +8,12 @@ uniform vec3 color2 : source_color;
 uniform sampler2D noise;
 uniform float noiseScale = 20.0;
 
+//wind uniforms
+uniform float time_x_speed = 1.25;
+uniform float time_y_speed = 0.4;
+uniform float x_scale = 0.3;
+uniform float y_scale = 0.2;
+
 varying vec3 worldPos;
 
 void vertex() {
@@ -23,6 +29,10 @@ void vertex() {
 		MODELVIEW_MATRIX *= scale_distance;
 	}
 	worldPos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; // Transition from local space to world space
+	
+	//simple wind
+	VERTEX.x += sin(NODE_POSITION_WORLD.x + TIME * time_x_speed + UV.y) * (UV.y) * x_scale;
+	VERTEX.z += cos(NODE_POSITION_WORLD.z + TIME * time_y_speed + UV.y) * (UV.y) * y_scale;
 }
 
 void fragment() {
