@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://snxo0jkle4cj"]
+
+[ext_resource type="Script" path="res://Procedural/world.gd" id="1_of6fv"]
+[ext_resource type="PackedScene" uid="uid://cal14mofe17kw" path="res://Procedural/plane.tscn" id="2_kwj83"]
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_of6fv")
+plane_scene = ExtResource("2_kwj83")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0.000156434, -0.000626538, 0, 0.970215, 0.242244, 0.000645772, -0.242244, 0.970215, 0, 3.5, 8)
+
+[node name="DirectionalLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.82515, -0.0708942, -0.560448, 0.553815, -0.0941714, 0.827297, -0.111429, -0.993029, -0.0384432, 0, 8.62503, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.653056, -0.755639, 0.0502641, -0.0198776, 0.0492456, 0.998589, -0.757048, -0.653134, 0.0171399, 0, 9.71135, 2.07838)
+light_color = Color(0, 0.862745, 0.956863, 1)
+light_energy = 16.0
+spot_range = 60.934
+spot_angle = 78.445
