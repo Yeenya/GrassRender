@@ -1,7 +1,0 @@
-res://baseScene.tscn
-res://Procedural/grass_fading.gdshader
-res://Mesh/grass_fading.res
-res://grass.gdshader
-res://Procedural/plane.tscn
-res://Procedural/world.tscn
-res://Procedural/world.gd
