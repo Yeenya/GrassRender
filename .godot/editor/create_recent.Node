@@ -1,4 +1,6 @@
+AnimationPlayer
+Node3D
+MeshInstance3D
 DirectionalLight3D
 Camera3D
 MultiMeshInstance3D
-MeshInstance3D

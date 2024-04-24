@@ -8,10 +8,28 @@ uniform vec3 color2 : source_color;
 uniform sampler2D noise;
 uniform float noiseScale = 20.0;
 
+uniform vec3 character_position;
+uniform float character_radius = 3.0;
+uniform sampler2D character_distance_falloff_curve : hint_default_black;
+uniform float character_push_strength = 1.0;
+
 varying vec3 worldPos;
 
 void vertex() {
 	worldPos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; // Transition from local space to world space
+	
+	vec3 dir_to_character = character_position - MODEL_MATRIX[3].xyz;
+	//dir_to_character.y = 0.0; for horizontal push only
+	
+	float distance_to_character = length(dir_to_character);
+	if (distance_to_character <= character_radius)
+	{
+		float falloff = 1.0 - smoothstep(0.0, 1.0, distance_to_character/character_radius);
+		dir_to_character = (inverse(MODEL_MATRIX) * vec4(dir_to_character, 0.0)).xyz;
+		dir_to_character = normalize(dir_to_character);
+		float falloff_curve = texture(character_distance_falloff_curve, vec2(falloff)).x;
+		VERTEX += normalize(-dir_to_character) * falloff_curve * character_push_strength * UV.y;
+	}
 }
 
 void fragment() {
