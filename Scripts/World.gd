@@ -74,6 +74,7 @@ func load_plane(p: Vector2):
 	if !plane_map.has(p):
 		plane_map[p] = plane_scene.instantiate()
 		plane_map[p].position = Vector3(p.x,0,p.y)
+		plane_map[p].get_node("Grass").character_path = $CharRoot.get_path()
 		add_child(plane_map[p])
 
 func unload_plane(p: Vector2):

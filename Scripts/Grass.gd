@@ -1,4 +1,3 @@
-@tool
 extends MultiMeshInstance3D
 
 @export var character_path := NodePath()
@@ -11,6 +10,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	material_override.set_shader_parameter(
-		"character_position", _character.global_transform.origin
-	)
+	if character_path != null:
+		material_override.set_shader_parameter(
+			"character_position", _character.global_transform.origin
+		)
