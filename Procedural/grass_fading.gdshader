@@ -8,13 +8,15 @@ uniform vec3 color2 : source_color;
 uniform sampler2D noise;
 uniform float noiseScale = 20.0;
 
-//wind uniforms
-uniform float time_x_speed = 1.25;
-uniform float time_y_speed = 0.4;
-uniform float x_scale = 0.3;
-uniform float y_scale = 0.2;
-
 varying vec3 worldPos;
+
+//wind uniforms
+uniform sampler2D wind_noise;
+
+float random (vec2 uv) {
+    return fract(sin(dot(uv.xy,
+        vec2(12.9898,78.233))) * 43758.5453123);
+}
 
 void vertex() {
 	vec3 world_camera = CAMERA_POSITION_WORLD;
@@ -30,9 +32,21 @@ void vertex() {
 	}
 	worldPos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; // Transition from local space to world space
 	
-	//simple wind
-	VERTEX.x += sin(NODE_POSITION_WORLD.x + TIME * time_x_speed + UV.y) * (UV.y) * x_scale;
-	VERTEX.z += cos(NODE_POSITION_WORLD.z + TIME * time_y_speed + UV.y) * (UV.y) * y_scale;
+	//wind - globally same wind direction movement of each vertex
+	//save local rotation of the vertex
+	mat3 rotation_matrix = mat3(MODEL_MATRIX);
+	vec3 object_vertex = rotation_matrix * VERTEX;
+	float speed = 1.0;
+	vec2 VectorOp = NODE_POSITION_WORLD.xz + TIME * speed / 100.0;
+	vec3 noiseTexture = texture(wind_noise,VectorOp).rgb;
+	vec3 wind_dir = vec3(2.0,0.1,1.);
+	
+	//apply the transformation in world space
+	object_vertex.x += (wind_dir.x + noiseTexture.x) * UV.y;
+	object_vertex.z += (wind_dir.z + noiseTexture.z) * UV.y;
+	
+	//inverse back to the local space
+	VERTEX = (inverse(rotation_matrix) * object_vertex);
 }
 
 void fragment() {
