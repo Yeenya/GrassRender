@@ -15,19 +15,22 @@ func _ready():
 	Messenger.TIME_SET_NIGHT.connect(set_night)
 	
 func set_morning():
-	$DirectionalLight3D.rotation.x = 0.0
-	$DirectionalLight3D.visible = true
+	$DirectionalLight3D.rotation_degrees.x = -10.0
+
 func set_day():
-	$DirectionalLight3D.rotation.x = -1.0
-	$DirectionalLight3D.visible = true
+	$DirectionalLight3D.rotation_degrees.x = -90.0
+	$WorldEnvironment.environment.background_energy_multiplier = 1.0
+	$DirectionalLight3D.light_energy = 1.0
+	$DirectionalLight3D.light_color.r = 1.0
 	
 func set_evening():
-	$DirectionalLight3D.rotation.x = 180.0
-	$DirectionalLight3D.visible = true
-	
+	$DirectionalLight3D.rotation_degrees.x = -170.0
+
 func set_night():
-	$DirectionalLight3D.rotation.x = 90.0
-	$DirectionalLight3D.visible = false
+	$DirectionalLight3D.rotation_degrees.x = -90.0
+	$DirectionalLight3D.light_energy = 0.1
+	$DirectionalLight3D.light_color.r = 0.3
+	$WorldEnvironment.environment.background_energy_multiplier = 0.2
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

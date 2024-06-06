@@ -54,7 +54,6 @@ mesh = SubResource("PlaneMesh_l3ica")
 
 [node name="Grass" type="MultiMeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_3jxhs")
-cast_shadow = 0
 multimesh = SubResource("MultiMesh_t16mp")
 script = ExtResource("3_0283r")
 
