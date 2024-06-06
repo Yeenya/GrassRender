@@ -1,6 +1,9 @@
-AnimationPlayer
+CSGBox3D
+CollisionShape3D
+Camera3D
 Node3D
+CharacterBody3D
+AnimationPlayer
 MeshInstance3D
 DirectionalLight3D
-Camera3D
 MultiMeshInstance3D

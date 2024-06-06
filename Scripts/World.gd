@@ -8,13 +8,12 @@ var plane_map = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var cam_grid_pos = $Camera.position
-	var cam_pos_2d = Vector2($Camera.position.x,$Camera.position.z)
+	var cam_grid_pos = $Player.position
+	var cam_pos_2d = Vector2($Player.position.x,$Player.position.z)
 	#Convert to grid coordinates
 	cam_grid_pos.x = floor(cam_grid_pos.x / size)
 	cam_grid_pos.z = floor(cam_grid_pos.z / size)
@@ -29,6 +28,7 @@ func _process(delta):
 			if is_in_radius(plane_pos,cam_pos_2d):
 				load_plane(plane_pos)
 	
+	'''
 	var direction = Vector3(0,0,0)
 	if Input.is_action_pressed("cam_left"):
 		direction.x = -1
@@ -51,13 +51,16 @@ func _process(delta):
 	
 	#Move in direction relative to camera
 	$Camera.position += $Camera.transform.basis * (direction * speed)
-
+	'''
+	
 var LOOKAROUND_SPEED = 0.003
 # accumulators
 var rot_x = 0
 var rot_y = 0
-
+	
 func _input(event):
+	pass
+	'''
 	if event is InputEventMouseMotion:
 		# modify accumulated mouse rotation
 		rot_x += event.relative.x * LOOKAROUND_SPEED
@@ -65,7 +68,7 @@ func _input(event):
 		$Camera.transform.basis = Basis() # reset rotation
 		$Camera.rotate_object_local(Vector3(0, -1, 0), rot_x) # first rotate in Y
 		$Camera.rotate_object_local(Vector3(-1, 0, 0), rot_y) # then rotate in X
-		
+		'''
 
 func is_in_radius(p: Vector2,cam_pos: Vector2):
 	return p.distance_to(cam_pos) <= radius*size
@@ -74,7 +77,7 @@ func load_plane(p: Vector2):
 	if !plane_map.has(p):
 		plane_map[p] = plane_scene.instantiate()
 		plane_map[p].position = Vector3(p.x,0,p.y)
-		plane_map[p].get_node("Grass").character_path = $CharRoot.get_path()
+		plane_map[p].get_node("Grass").character_path = $Player.get_path()
 		add_child(plane_map[p])
 
 func unload_plane(p: Vector2):

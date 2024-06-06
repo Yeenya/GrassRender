@@ -5,6 +5,8 @@ extends MultiMeshInstance3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	pass
+	'''
 	var char_mesh: Mesh = _character.get_child(0).mesh
 	var array_mesh = ArrayMesh.new()
 	array_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, char_mesh.surface_get_arrays(0))
@@ -13,13 +15,20 @@ func _ready():
 	for vtx in range(mdt.get_vertex_count()):
 		var vert: Vector3 = mdt.get_vertex(vtx)
 		#print(str(_character.get_child(0).global_transform.basis * vert) + " vs " + str(vert))
-
+	'''
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	pass
 	if character_path != null:
+		'''
 		material_override.set_shader_parameter(
 			"character_position", _character.global_transform.origin
 		)
-		#if position.distance_to(_character.position) < 5:
-			
+		'''
+		material_override.set_shader_parameter(
+			"right_foot_position", _character.right_foot_position
+		)
+		material_override.set_shader_parameter(
+			"left_foot_position", _character.left_foot_position
+		)

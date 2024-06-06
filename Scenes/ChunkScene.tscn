@@ -34,7 +34,8 @@ shader = ExtResource("1_772fh")
 shader_parameter/color = Color(0.380392, 0.34902, 0, 1)
 shader_parameter/color2 = Color(0.364706, 0.670588, 0.105882, 1)
 shader_parameter/noiseScale = 20.0
-shader_parameter/character_position = null
+shader_parameter/right_foot_position = null
+shader_parameter/left_foot_position = null
 shader_parameter/character_radius = 4.0
 shader_parameter/character_push_strength = 2.0
 shader_parameter/noise = SubResource("NoiseTexture2D_d0wgu")
@@ -56,3 +57,10 @@ material_override = SubResource("ShaderMaterial_3jxhs")
 cast_shadow = 0
 multimesh = SubResource("MultiMesh_t16mp")
 script = ExtResource("3_0283r")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.51, 0)
+transparency = 1.0
+cast_shadow = 0
+use_collision = true
+size = Vector3(10, 1, 10)

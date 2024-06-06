@@ -8,8 +8,9 @@ uniform vec3 color2 : source_color;
 uniform sampler2D noise;
 uniform float noiseScale = 20.0;
 
-uniform vec3 character_position;
-uniform float character_radius = 3.0;
+uniform vec3 right_foot_position;
+uniform vec3 left_foot_position;
+uniform float character_radius = 0.5;
 uniform sampler2D character_distance_falloff_curve : hint_default_black;
 uniform float character_push_strength = 1.0;
 
@@ -23,7 +24,7 @@ void vertex() {
 	worldPos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; // Transition from local space to world space
 	
 	float smoothness = 10.0;
-	float min_dist = 50.0;
+	float min_dist = 100.0;
 	
 	if(distance(worldPos.xz, world_camera.xz) > min_dist){
 		mat4 scale_distance = mat4(1.0);
@@ -39,7 +40,7 @@ void vertex() {
 	float speed = 1.0;
 	vec2 VectorOp = NODE_POSITION_WORLD.xz + TIME * speed / 100.0;
 	vec3 noiseTexture = texture(wind_noise,VectorOp).rgb;
-	vec3 wind_dir = vec3(1.0,0.1,0.5);
+	vec3 wind_dir = vec3(0.0,0.1,0.0);
 	
 	//apply the transformation in world space
 	object_vertex.x += (wind_dir.x + noiseTexture.x) * UV.y;
@@ -47,18 +48,23 @@ void vertex() {
 	
 	//inverse back to the local space
 	VERTEX = (inverse(rotation_matrix) * object_vertex);
+
+	vec3 dir_to_left_foot = left_foot_position - MODEL_MATRIX[3].xyz;
+	vec3 dir_to_right_foot = right_foot_position - MODEL_MATRIX[3].xyz;
+	vec3 dir_to_foot;
+	if (length(dir_to_left_foot) < length(dir_to_right_foot))
+		dir_to_foot = dir_to_left_foot;
+	else
+		dir_to_foot = dir_to_right_foot;
 	
-	vec3 dir_to_character = character_position - MODEL_MATRIX[3].xyz;
-	//dir_to_character.y = 0.0; for horizontal push only
-	
-	float distance_to_character = length(dir_to_character);
-	if (distance_to_character <= character_radius)
+	float distance_to_foot = length(dir_to_foot);
+	if (distance_to_foot <= character_radius)
 	{
-		float falloff = 1.0 - smoothstep(0.0, 1.0, distance_to_character/character_radius);
-		dir_to_character = (inverse(MODEL_MATRIX) * vec4(dir_to_character, 0.0)).xyz;
-		dir_to_character = normalize(dir_to_character);
+		float falloff = 1.0 - smoothstep(0.0, 1.0, distance_to_foot/character_radius);
+		dir_to_foot = (inverse(MODEL_MATRIX) * vec4(dir_to_foot, 0.0)).xyz;
+		dir_to_foot = normalize(dir_to_foot);
 		float falloff_curve = texture(character_distance_falloff_curve, vec2(falloff)).x;
-		VERTEX += normalize(-dir_to_character) * falloff_curve * character_push_strength * UV.y;
+		VERTEX += normalize(-dir_to_foot) * falloff_curve * character_push_strength * UV.y;
 	}
 }
 
