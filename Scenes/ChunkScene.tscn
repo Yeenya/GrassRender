@@ -38,6 +38,7 @@ shader_parameter/right_foot_position = null
 shader_parameter/left_foot_position = null
 shader_parameter/character_radius = 4.0
 shader_parameter/character_push_strength = 2.0
+shader_parameter/wind_direction = Vector3(-1.015, 0, -1)
 shader_parameter/noise = SubResource("NoiseTexture2D_d0wgu")
 shader_parameter/character_distance_falloff_curve = SubResource("CurveTexture_r0371")
 shader_parameter/wind_noise = SubResource("NoiseTexture2D_5u07w")

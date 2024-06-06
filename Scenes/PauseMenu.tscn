@@ -98,6 +98,42 @@ text = "Resume"
 layout_mode = 2
 text = "Quit"
 
+[node name="HSliderX" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 411.0
+offset_top = 57.0
+offset_right = 723.0
+offset_bottom = 73.0
+min_value = -2.0
+max_value = 0.0
+step = 0.05
+
+[node name="HSliderZ" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 411.0
+offset_top = 106.0
+offset_right = 723.0
+offset_bottom = 122.0
+min_value = -2.0
+max_value = 0.0
+step = 0.05
+
+[node name="XLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 348.0
+offset_top = 51.0
+offset_right = 403.0
+offset_bottom = 74.0
+text = "WindX:"
+
+[node name="ZLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 348.0
+offset_top = 101.0
+offset_right = 403.0
+offset_bottom = 124.0
+text = "WindZ:"
+
 [connection signal="pressed" from="MorningButton" to="." method="_on_morning_button_pressed"]
 [connection signal="pressed" from="DayButton" to="." method="_on_day_button_pressed"]
 [connection signal="pressed" from="EveningButton" to="." method="_on_evening_button_pressed"]
@@ -105,3 +141,5 @@ text = "Quit"
 [connection signal="pressed" from="ShadowsButton" to="." method="_on_shadows_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="value_changed" from="HSliderX" to="." method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="HSliderZ" to="." method="_on_h_slider_z_value_changed"]

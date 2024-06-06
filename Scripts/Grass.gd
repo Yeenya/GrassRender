@@ -2,11 +2,10 @@ extends MultiMeshInstance3D
 
 @export var character_path := NodePath()
 @onready var _character: Node3D = get_node(character_path)
-var shadows = true
+var wind_vector := Vector3.ZERO
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	shadows = self.get_cast_shadows_setting() == SHADOW_CASTING_SETTING_ON
-	pass
+	switch_shadows(Messenger.shadows_on)
 	'''
 	var char_mesh: Mesh = _character.get_child(0).mesh
 	var array_mesh = ArrayMesh.new()
@@ -19,13 +18,26 @@ func _ready():
 	'''
 	
 	Messenger.SHADOWS.connect(switch_shadows)
-
-func switch_shadows():
-	if shadows:
-		self.set_cast_shadows_setting(SHADOW_CASTING_SETTING_OFF)
-	else:
+	Messenger.WIND_CHANGE_Z.connect(wind_change_z)
+	Messenger.WIND_CHANGE_X.connect(wind_change_x)
+	
+func switch_shadows(shadows_on):
+	if shadows_on:
 		self.set_cast_shadows_setting(SHADOW_CASTING_SETTING_ON)
-	shadows = !shadows
+	else:
+		self.set_cast_shadows_setting(SHADOW_CASTING_SETTING_OFF)
+	
+func wind_change_x(value):
+	wind_vector.x = value + randf_range(-0.3,0.3)
+	material_override.set_shader_parameter(
+			"wind_direction", wind_vector
+		)
+		
+func wind_change_z(value):
+	wind_vector.z = value + randf_range(-0.3,0.3)
+	material_override.set_shader_parameter(
+			"wind_direction", wind_vector
+		)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

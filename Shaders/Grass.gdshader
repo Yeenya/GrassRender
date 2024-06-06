@@ -17,6 +17,8 @@ uniform float character_push_strength = 1.0;
 //wind uniforms
 uniform sampler2D wind_noise;
 
+uniform vec3 wind_direction = vec3(0.0,0.0,0.0);
+
 varying vec3 worldPos;
 
 void vertex() {
@@ -37,14 +39,15 @@ void vertex() {
 	//save local rotation of the vertex
 	mat3 rotation_matrix = mat3(MODEL_MATRIX);
 	vec3 object_vertex = rotation_matrix * VERTEX;
-	float speed = 1.0;
+	float speed = 3.0;
 	vec2 VectorOp = NODE_POSITION_WORLD.xz + TIME * speed / 100.0;
 	vec3 noiseTexture = texture(wind_noise,VectorOp).rgb;
-	vec3 wind_dir = vec3(0.0,0.1,0.0);
+	vec3 wind_dir = wind_direction;
 	
-	//apply the transformation in world space
-	object_vertex.x += (wind_dir.x + noiseTexture.x) * UV.y;
-	object_vertex.z += (wind_dir.z + noiseTexture.z) * UV.y;
+	//apply the transformation in world space 
+	//sin(TIME + NODE_POSITION_WORLD.x)
+	object_vertex.x += (wind_dir.x + noiseTexture.x*2.0) * UV.y;
+	object_vertex.z += (wind_dir.z + noiseTexture.z*2.0) * UV.y;
 	
 	//inverse back to the local space
 	VERTEX = (inverse(rotation_matrix) * object_vertex);

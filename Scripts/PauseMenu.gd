@@ -43,4 +43,14 @@ func _on_night_button_pressed():
 	Messenger.TIME_SET_NIGHT.emit()
 
 func _on_shadows_button_pressed():
-	Messenger.SHADOWS.emit()
+	Messenger.shadows_on = !Messenger.shadows_on
+	Messenger.SHADOWS.emit(Messenger.shadows_on)
+
+
+func _on_h_slider_value_changed(value):
+	#$HSlider.value = 0
+	Messenger.WIND_CHANGE_X.emit(value)
+
+
+func _on_h_slider_z_value_changed(value):
+	Messenger.WIND_CHANGE_Z.emit(value)
