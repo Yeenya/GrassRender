@@ -1,0 +1,98 @@
+[gd_scene load_steps=3 format=3 uid="uid://5ubbsjk0juxu"]
+
+[ext_resource type="Script" path="res://Scripts/PauseMenu.gd" id="1_xykxg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hefqb"]
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 2.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xykxg")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -1.0
+offset_right = -2.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.705882)
+
+[node name="MorningButton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 103.0
+offset_bottom = 81.0
+text = "Morning"
+
+[node name="DayButton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 103.0
+offset_bottom = 131.0
+text = "Day"
+
+[node name="EveningButton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 10.0
+offset_top = 150.0
+offset_right = 103.0
+offset_bottom = 181.0
+text = "Evening"
+
+[node name="NightButton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 10.0
+offset_top = 200.0
+offset_right = 103.0
+offset_bottom = 231.0
+text = "Night"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -168.5
+offset_top = -108.5
+offset_right = 168.5
+offset_bottom = 108.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_hefqb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="MorningButton" to="." method="_on_morning_button_pressed"]
+[connection signal="pressed" from="DayButton" to="." method="_on_day_button_pressed"]
+[connection signal="pressed" from="EveningButton" to="." method="_on_evening_button_pressed"]
+[connection signal="pressed" from="NightButton" to="." method="_on_night_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

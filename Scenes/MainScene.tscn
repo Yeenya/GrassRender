@@ -1,9 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://snxo0jkle4cj"]
+[gd_scene load_steps=10 format=3 uid="uid://snxo0jkle4cj"]
 
 [ext_resource type="Script" path="res://Scripts/World.gd" id="1_844f8"]
 [ext_resource type="PackedScene" uid="uid://cal14mofe17kw" path="res://Scenes/ChunkScene.tscn" id="2_4n20d"]
 [ext_resource type="Script" path="res://Scripts/CharMove.gd" id="3_grhxs"]
 [ext_resource type="PackedScene" uid="uid://d0xr3vjtm1vdr" path="res://Scenes/Player.tscn" id="4_7bqt7"]
+[ext_resource type="PackedScene" uid="uid://5ubbsjk0juxu" path="res://Scenes/PauseMenu.tscn" id="4_octur"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25vt1"]
+sky_top_color = Color(0.317647, 0.45098, 0.666667, 1)
+sky_horizon_color = Color(0.635294, 0.653922, 0.681373, 1)
+ground_bottom_color = Color(0.223529, 0.164706, 0.0588235, 1)
+ground_horizon_color = Color(0.635294, 0.653922, 0.681373, 1)
+
+[sub_resource type="Sky" id="Sky_tkvgn"]
+sky_material = SubResource("ProceduralSkyMaterial_25vt1")
+
+[sub_resource type="Environment" id="Environment_0u4h4"]
+background_mode = 2
+sky = SubResource("Sky_tkvgn")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_nxhbl"]
 
@@ -11,15 +27,12 @@
 script = ExtResource("1_844f8")
 plane_scene = ExtResource("2_4n20d")
 
-[node name="DirectionalLight" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.82515, -0.0708942, -0.560448, 0.553815, -0.0941714, 0.827297, -0.111429, -0.993029, -0.0384432, 0, 8.62503, 0)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0u4h4")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(0.653056, -0.755639, 0.0502641, -0.0198776, 0.0492456, 0.998589, -0.757048, -0.653134, 0.0171399, 0, 9.71135, 2.07838)
-light_color = Color(0, 0.862745, 0.956863, 1)
-light_energy = 16.0
-spot_range = 60.934
-spot_angle = 78.445
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
 
 [node name="CharRoot" type="Node3D" parent="."]
 visible = false
@@ -33,5 +46,9 @@ skeleton = NodePath("../..")
 
 [node name="Player" parent="." instance=ExtResource("4_7bqt7")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0.1, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("4_octur")]
 
 [editable path="Player"]

@@ -8,7 +8,26 @@ var plane_map = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Messenger.TIME_SET_MORNING.connect(set_morning)
+	Messenger.TIME_SET_DAY.connect(set_day)
+	Messenger.TIME_SET_EVENING.connect(set_evening)
+	Messenger.TIME_SET_NIGHT.connect(set_night)
+	
+func set_morning():
+	$DirectionalLight3D.rotation.x = 0.0
+	$DirectionalLight3D.visible = true
+func set_day():
+	$DirectionalLight3D.rotation.x = -1.0
+	$DirectionalLight3D.visible = true
+	
+func set_evening():
+	$DirectionalLight3D.rotation.x = 180.0
+	$DirectionalLight3D.visible = true
+	
+func set_night():
+	$DirectionalLight3D.rotation.x = 90.0
+	$DirectionalLight3D.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
