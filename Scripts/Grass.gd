@@ -2,9 +2,10 @@ extends MultiMeshInstance3D
 
 @export var character_path := NodePath()
 @onready var _character: Node3D = get_node(character_path)
-
+var shadows = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	shadows = self.get_cast_shadows_setting() == SHADOW_CASTING_SETTING_ON
 	pass
 	'''
 	var char_mesh: Mesh = _character.get_child(0).mesh
@@ -16,6 +17,15 @@ func _ready():
 		var vert: Vector3 = mdt.get_vertex(vtx)
 		#print(str(_character.get_child(0).global_transform.basis * vert) + " vs " + str(vert))
 	'''
+	
+	Messenger.SHADOWS.connect(switch_shadows)
+
+func switch_shadows():
+	if shadows:
+		self.set_cast_shadows_setting(SHADOW_CASTING_SETTING_OFF)
+	else:
+		self.set_cast_shadows_setting(SHADOW_CASTING_SETTING_ON)
+	shadows = !shadows
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

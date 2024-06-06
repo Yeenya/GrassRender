@@ -63,6 +63,14 @@ offset_right = 103.0
 offset_bottom = 231.0
 text = "Night"
 
+[node name="ShadowsButton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 10.0
+offset_top = 244.0
+offset_right = 103.0
+offset_bottom = 275.0
+text = "Grass Shadows"
+
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -94,5 +102,6 @@ text = "Quit"
 [connection signal="pressed" from="DayButton" to="." method="_on_day_button_pressed"]
 [connection signal="pressed" from="EveningButton" to="." method="_on_evening_button_pressed"]
 [connection signal="pressed" from="NightButton" to="." method="_on_night_button_pressed"]
+[connection signal="pressed" from="ShadowsButton" to="." method="_on_shadows_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

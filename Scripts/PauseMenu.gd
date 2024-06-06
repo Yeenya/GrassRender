@@ -41,3 +41,6 @@ func _on_evening_button_pressed():
 
 func _on_night_button_pressed():
 	Messenger.TIME_SET_NIGHT.emit()
+
+func _on_shadows_button_pressed():
+	Messenger.SHADOWS.emit()
