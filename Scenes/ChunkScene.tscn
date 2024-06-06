@@ -12,7 +12,7 @@ material = SubResource("StandardMaterial3D_1lbrq")
 size = Vector2(10, 10)
 
 [sub_resource type="Curve" id="Curve_bgilr"]
-_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_r0371"]
@@ -31,14 +31,14 @@ noise = SubResource("FastNoiseLite_b3jj0")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3jxhs"]
 render_priority = 0
 shader = ExtResource("1_772fh")
-shader_parameter/color = Color(0.380392, 0.34902, 0, 1)
+shader_parameter/color = Color(0.317647, 0.498039, 0, 1)
 shader_parameter/color2 = Color(0.364706, 0.670588, 0.105882, 1)
 shader_parameter/noiseScale = 20.0
 shader_parameter/right_foot_position = null
 shader_parameter/left_foot_position = null
-shader_parameter/character_radius = 4.0
-shader_parameter/character_push_strength = 2.0
-shader_parameter/wind_direction = Vector3(-1.015, 0, -1)
+shader_parameter/character_radius = 3.0
+shader_parameter/character_push_strength = 2.5
+shader_parameter/wind_direction = Vector3(0, 0, 0)
 shader_parameter/noise = SubResource("NoiseTexture2D_d0wgu")
 shader_parameter/character_distance_falloff_curve = SubResource("CurveTexture_r0371")
 shader_parameter/wind_noise = SubResource("NoiseTexture2D_5u07w")

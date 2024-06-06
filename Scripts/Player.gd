@@ -6,7 +6,7 @@ extends CharacterBody3D
 
 const SPEEDBASE = 10
 var SPEED: int
-const JUMP_VELOCITY = 4.5
+const JUMP_VELOCITY = 10
 
 @export var sens_horizontal = 0.1
 @export var sens_vertical = 0.1
@@ -15,8 +15,11 @@ var left_foot: int
 @export var right_foot_position: Vector3
 @export var left_foot_position: Vector3
 
+@onready var default_cam_position = $Camera_mount/Camera3D.position
+var zoom_amount = 1.0
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 3
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -28,6 +31,15 @@ func _input(event):
 		rotate_y(deg_to_rad(-event.relative.x * sens_horizontal))
 		visuals.rotate_y(deg_to_rad(event.relative.x * sens_horizontal))
 		camera_mount.rotate_x(deg_to_rad(-event.relative.y * sens_vertical))
+	if event.is_action_pressed("zoom_in"):
+		zoom_amount -= 0.1
+		if zoom_amount < 0.1:
+			zoom_amount = 0.1
+	if event.is_action_pressed("zoom_out"):
+		zoom_amount += 0.1
+		if zoom_amount > 3:
+			zoom_amount = 3
+	$Camera_mount/Camera3D.position = default_cam_position * zoom_amount + Vector3(0.0, -0.5, -0.5)
 
 func _physics_process(delta):
 	SPEED = SPEEDBASE * $Visuals/mixamo_base/AnimationPlayer.speed_scale
